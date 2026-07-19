@@ -139,3 +139,121 @@ To strengthen our position, we must develop strategies, build partnerships, asse
 ```
 
 若畫面出現 collocation groups、CEFR levels 和 guidewords，就表示 demo 已成功啟動。
+
+## 8. 部署到 Streamlit Community Cloud
+
+部署需要兩個檔案放在同一個 GitHub repo：
+
+```text
+app.py
+ECP_v6_streamlit_clean.csv
+```
+
+以下指令中的 `<your-account>` 請換成自己的 GitHub 帳號。
+
+### 8.1 先初始化本機 Git
+
+在目前本機專案的資料夾底下初始化 git：
+
+```bash
+git init
+git add app.py ECP_v6_streamlit_clean.csv README.md
+git commit -m "Initial ECP Streamlit demo"
+git branch -M main
+```
+
+### 8.2 在 GitHub 建立空 repo
+
+1. 打開：
+
+```text
+https://github.com/new
+```
+
+2. Repository name 填：
+
+```text
+ecp-streamlit-demo
+```
+
+3. 選 `Public` 或 `Private`。
+4. 不要勾選 `Add a README file`、`.gitignore`、`license`。
+5. 按 `Create repository`。
+
+### 8.3 Push 到 GitHub
+
+回到 Terminal，設定 GitHub repo：
+
+```bash
+git remote add origin https://github.com/<your-account>/ecp-streamlit-demo.git
+```
+
+如果出現 `remote origin already exists`，改用：
+
+```bash
+git remote set-url origin https://github.com/<your-account>/ecp-streamlit-demo.git
+```
+
+推上去：
+
+```bash
+git push -u origin main
+```
+
+到 GitHub repo 頁面確認有這兩個檔案：
+
+```text
+app.py
+ECP_v6_streamlit_clean.csv
+```
+
+### 8.4 到 Streamlit Community Cloud 部署
+
+1. 打開：
+
+```text
+https://share.streamlit.io
+```
+
+2. 用 GitHub 帳號登入。
+3. 點 `Create app`。
+4. 選 `Yup, I have an app`。
+5. 填：
+
+```text
+Repository: <your-account>/ecp-streamlit-demo
+Branch: main
+Main file path: app.py
+```
+
+6. 按 `Deploy`。
+7. 等部署完成後，打開 Streamlit 產生的網址。
+
+### 8.5 測試線上 app
+
+搜尋：
+
+```text
+earn
+make
+knowledge
+```
+
+如果看到 `ECP dataset not found`，回 GitHub 檢查 repo 裡是否有：
+
+```text
+app.py
+ECP_v6_streamlit_clean.csv
+```
+
+### 8.6 之後更新
+
+修改 `app.py` 或 CSV 後：
+
+```bash
+git add app.py ECP_v6_streamlit_clean.csv README.md
+git commit -m "Update ECP Streamlit demo"
+git push
+```
+
+Streamlit 會自動重新部署。
